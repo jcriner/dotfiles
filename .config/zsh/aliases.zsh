@@ -4,6 +4,21 @@ alias howto='xargs -I STRING curl cheat.sh/STRING <<<'
 # Dotfile management via bare git repo.
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
+# Edit quickly
+alias e=$EDITOR
+
+# List directory contents
+alias ls='ls -G'      # color output
+alias lsa='ls -lah'
+alias l='ls -lah'
+alias ll='ls -lh'
+alias la='ls -lAh'
+
+# grep
+alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.venv,venv}'
+alias egrep='grep -E'    # use extended regular expressions
+alias fgrep='grep -F'    # use fixed strings; no regexp parsing
+
 # Python shortcuts
 alias python=python3
 alias py=python3
@@ -45,4 +60,9 @@ boop () {
     sfx bad
   fi
   $(exit "$last")
+}
+
+# fh - search in your command history and execute selected command
+fh() {
+  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }

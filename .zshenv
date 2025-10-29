@@ -1,2 +1,2 @@
-ZSHDOTDIR="$HOME/.config/zsh"
-mkdir -p $ZSHDOTDIR
+ZDOTDIR="$HOME/.config/zsh"
+mkdir -p $ZDOTDIR
