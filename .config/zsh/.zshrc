@@ -1,5 +1,5 @@
 # -----------------------------------------------------------
-#  Clean Zsh config using Antidote (no Oh My Zsh)
+#  Basic config
 # -----------------------------------------------------------
 
 # PATH setup
@@ -8,6 +8,21 @@ export PATH="$HOME/bin:$PATH"
 # History options
 HIST_STAMPS="yyyy-mm-dd"
 setopt inc_append_history   # Add history lines to the file immediately
+export HISTSIZE=10000  # in-memory
+export SAVEHIST=500000
+# TODO: More stuff to figure out here:
+# export HISTFILE=$ZDOTDIR/.hist_zsh
+#
+# # HISTORY
+# setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+# setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
+# setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+# setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+# setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+# setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
+# setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+# setopt SHARE_HISTORY             # Share history between all sessions.
+# # END HISTORY
 
 # Editor settings
 if [[ -n $SSH_CONNECTION ]]; then
@@ -17,48 +32,25 @@ else
 fi
 
 # -----------------------------------------------------------
-#  Antidote plugin manager
-# -----------------------------------------------------------
-# Auto-install Antidote if missing
-ANTIDOTE_DIR="${ZDOTDIR:-$HOME}/.antidote"
-if [[ ! -d "$ANTIDOTE_DIR" ]]; then
-  echo "Installing Antidote..."
-  git clone --depth=1 https://github.com/mattmc3/antidote.git "$ANTIDOTE_DIR"
+# Add completion and syntax highlighting.
+# -----------------------------------------------------export i------
+
+ZPLUGINS="$ZDOTDIR/plugins"
+mkdir -p $ZPLUGINS
+
+if [[ ! -e $ZPLUGINS/zsh-syntax-highlighting ]]; then
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZPLUGINS/zsh-syntax-highlighting
 fi
 
-# Load Antidote
-source "$ANTIDOTE_DIR/antidote.zsh"
-
-# -----------------------------------------------------------
-#  Plugins (managed by Antidote)
-# -----------------------------------------------------------
-# Define your plugins list
-plugins=(
-  MichaelAquilina/zsh-you-should-use
-  zsh-users/zsh-autosuggestions
-  zsh-users/zsh-syntax-highlighting
-)
-
-# Location of Antidote’s bundle file (cached plugin list)
-BUNDLE_FILE="${ZDOTDIR:-$HOME}/.zsh_plugins.txt"
-
-# Generate or update the bundle file if it doesn’t exist or is outdated
-if [[ ! -f $BUNDLE_FILE ]]; then
-  print -l ${plugins[@]} >! "$BUNDLE_FILE"
-  antidote bundle <"$BUNDLE_FILE" >! "${BUNDLE_FILE%.txt}.zsh"
+if [[ ! -e $ZPLUGINS/zsh-autosuggestions ]]; then
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZPLUGINS/zsh-autosuggestions
 fi
 
-# Load plugins from the generated .zsh file
-source "${BUNDLE_FILE%.txt}.zsh"
+autoload -Uz compinit
+compinit
 
-# # Regenerate bundle if plugins change.
-# antidote bundle <~/.zsh_plugins.txt >~/.zsh_plugins.zsh
-
-# # Update all bundles
-# antidote update
-
-# # Load all plugins
-# antidote load ${plugins[@]}
+source $ZPLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+source $ZPLUGINS/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
 # -----------------------------------------------------------
 #  fzf integration
@@ -81,4 +73,5 @@ fi
 # -----------------------------------------------------------
 # alias ll='ls -lah'
 # alias gs='git status'
+
 source $ZDOTDIR/aliases.zsh
