@@ -51,6 +51,12 @@ fi
 # Load plugins from the generated .zsh file
 source "${BUNDLE_FILE%.txt}.zsh"
 
+# # Regenerate bundle if plugins change.
+# antidote bundle <~/.zsh_plugins.txt >~/.zsh_plugins.zsh
+
+# # Update all bundles
+# antidote update
+
 # # Load all plugins
 # antidote load ${plugins[@]}
 
