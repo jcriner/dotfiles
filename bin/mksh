@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+#
+# Script Name: /Users/jcriner/bin/mksh
+# Original source:
+# Date: 2025-10-23
+#
+# TODO: description
+
+set -e
+set -u
+set -o pipefail
+
+if [ ! $# -eq 1 ]; then
+  echo 'mksh takes one argument' 1>&2
+  exit 1
+elif [ -e "$1" ]; then
+  read -p "$1 already exists. Do you want to edit it? (y/N): " -n 1 -r
+  echo # add newline
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    $EDITOR "$1"  # alternatively: exec "$EDITOR" "$1"
+    exit 0
+  else
+    echo "Action cancelled."
+    exit 1
+  fi
+fi
+
+echo "#!/usr/bin/env bash
+#
+# Script Name: $1
+# Original source:
+# Date: $(date +%F)
+#
+# TODO: description
+
+set -e
+set -u
+set -o pipefail
+
+function usage {
+  echo "usage: $1 TODO" >&2
+  exit 1
+}
+
+" > "$1"
+
+chmod u+x "$1"
+
+"$EDITOR" "$1"

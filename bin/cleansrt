@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+#
+# Script Name: cleansrt
+# Original source: ChatGPT
+# Date: 2025-10-31
+#
+# Convert an .srt subtitle file into clean, human-readable text.
+# Usage: ./srt2txt.sh input.srt > output.txt
+#
+# NOTE: This logic is semi-duplicated in my rewrite of the 'getsubs' scripts.
+# This version uses all sed, the other uses awk. Thanks, ChatGPT.
+
+input="$1"
+
+if [ -z "$input" ]; then
+    echo "Usage: $0 input.srt > output.txt"
+    exit 1
+fi
+
+# Remove BOM if present and normalize line endings
+sed 's/\r$//' "$input" | \
+# Remove cue numbers (lines that are only digits)
+sed '/^[0-9][0-9]*$/d' | \
+# Remove timestamp lines (those containing -->)
+sed '/-->/d' | \
+# Remove empty lines left over from cue separation
+awk 'NF' | \
+# Merge all subtitle lines into one continuous line
+tr '\n' ' ' | \
+# Add line breaks after sentence-ending punctuation
+sed 's/ *\([.!?]["’”)]*\) */\1\n\n/g' | \
+# Clean up extra spaces
+sed 's/  */ /g; s/^ *//; s/ *$//' | \
+# Wrap lines to a readable width (e.g., 80 chars)
+fold -s -w 80

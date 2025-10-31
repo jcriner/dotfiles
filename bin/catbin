@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# Script Name: catbin
+# Original source: https://codeberg.org/EvanHahn/dotfiles
+# Date: 2025-10-24
+#
+# cat prints the source contents of a command in your path.
+
+set -e
+set -u
+
+if [[ $# != 1 ]]; then
+  echo 'usage: echobin something_in_your_path' >&2
+  exit 1
+fi
+
+if hash bat 2>/dev/null; then
+  cat_command=bat
+else
+  # shellcheck disable=SC2209
+  cat_command=cat
+fi
+
+exec "$cat_command" "$(command -v "$1")"

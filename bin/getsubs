@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+#
+# Script Name: getsubs
+# Original source: Evan Hahn's dotfiles 
+# Date: 2025-10-31
+#
+# Get subtitles from a YouTube video.
+
+set -euo pipefail
+
+URL="${1:-}"
+SUB_LANG="${SUB_LANG:-en}"
+DL_DIR="${DL_DIR:-$HOME/Downloads}"
+RAW_DIR="$DL_DIR/raw_subs"
+CLEAN_DIR="$DL_DIR/clean_texts"
+
+# Make sure RAW_DIR and CLEAN_DIR are defined
+mkdir -p "$RAW_DIR" "$CLEAN_DIR"
+
+echo "Downloading subtitles for: $URL"
+
+printf '[%s]\n' "$URL"
+
+yt-dlp \
+    --skip-download \
+    --write-sub \
+    --write-auto-sub \
+    --sub-lang "$SUB_LANG" \
+    --sub-format srt \
+    -o "$RAW_DIR/%(title)s.%(ext)s" \
+    --paths subtitles:"$RAW_DIR" \
+    "$URL"
+
+# Find the newest .srt file
+SRT_FILE=$(find "$RAW_DIR" -type f -name "*.srt" -print0 | xargs -0 ls -t | head -n 1)
+if [[ -z "$SRT_FILE" ]]; then
+  echo "No subtitle file found."
+  exit 1
+fi
+
+BASENAME=$(basename "$SRT_FILE" .srt)
+OUT_FILE="$CLEAN_DIR/${BASENAME}.txt"
+
+echo "Cleaning subtitles → $OUT_FILE"
+
+# --- Subtitle cleanup logic ---
+# Removes numbering and timestamps, merges lines,
+# and splits into one sentence per line.
+awk '
+  /^[0-9]+$/ { next }                    # remove cue numbers
+  /-->/{ next }                          # remove timestamp lines
+  NF { printf "%s ", $0 }                # merge text lines
+  END { print "" }                       # final newline
+' "$SRT_FILE" |
+# Break at sentence endings (., ?, !) followed by space and capital letter
+sed 's/\([.!?]\) \([A-Z]\)/\1\n\n\2/g' |
+# Trim extra spaces
+sed 's/^ *//; s/ *$//' | 
+# Wrap lines to a readable width
+fold -s -w 80 > "$OUT_FILE"
+
+echo "Cleaned text saved to: $OUT_FILE"

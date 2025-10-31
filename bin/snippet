@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# Script Name: snippet
+# Original source:
+# Date: 2025-10-23
+#
+# snippet prints the specified snippet from the .config/snippets directory.
+
+set -e
+set -u
+set -o pipefail
+
+if [[ $# -ne 1 ]]; then
+    echo 'Must pass exactly one argument' 1>&2
+    exit 1
+fi
+
+XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+path="$XDG_CONFIG_HOME/snippets/$1"
+
+die () {
+    echo "No snippet found at $path" 1>&2
+}
+
+cat "$path" 2>/dev/null || die
+
+

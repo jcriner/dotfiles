@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#
+# Script Name: pasta
+# Original source: https://codeberg.org/EvanHahn/dotfiles
+# Date: 2025-10-23
+#
+# TODO: description
+
+set -e
+set -u
+
+if hash pbpaste 2>/dev/null; then
+  exec pbpaste
+elif hash xclip 2>/dev/null; then
+  exec xclip -selection clipboard -o
+elif [[ -e /tmp/clipboard ]]; then
+  exec cat /tmp/clipboard
+else
+  echo ''
+fi

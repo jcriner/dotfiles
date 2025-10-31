@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# Script Name: radio
+# Original source: https://codeberg.org/EvanHahn/dotfiles
+# Date: 2025-10-23
+#
+# radio plays audio from various internet radio stations
+# e.g., 'radio lofi'
+
+set -e
+set -u
+set -o pipefail
+
+if [ "$1" == lofi ]; then
+  url='https://live.hunter.fm/lofi_low'
+elif [ "$1" == trance ]; then
+  url='http://ubuntu.hbr1.com:19800/trance.ogg'
+elif [ "$1" == salsa ]; then
+  url='https://latinasalsa.ice.infomaniak.ch/latinasalsa.mp3'
+elif [ "$1" == kfai ]; then
+  url='https://kfai.broadcasttool.stream/kfai-1'
+else
+  echo "don't know $1" 1>&2
+  exit 1
+fi
+
+exec mpv --really-quiet "$url"
