@@ -7,6 +7,9 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 # Edit quickly
 alias e=$EDITOR
 
+# Easily get YYYY-mm-dd dates.
+alias ymd="date +%F"
+
 # List directory contents
 alias ls='ls -G'      # color output
 alias lsa='ls -lah'

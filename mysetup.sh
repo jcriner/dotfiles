@@ -3,6 +3,14 @@
 # This file includes the various plugins and configuration I need for my
 # environment. It assumes a MacOS device. Hopefully this saves me a lot of time
 # setting up a new computer when I get a job.
+#
+# The steps should be organized as follows:
+# 1. Install packages and applications
+#    a. Learn about "brew bundle"
+# 2. MacOS configuration (or other host OS)
+# 3. Shell configuration
+# 4. Text editor configuration
+# 5. General application configuration
 
 # Install Homebrew
 #
@@ -28,11 +36,19 @@ brew_packages=(
 	ghostty  # cross-platform; and Terminal doesn't support colors
 	git
     go
+    gopls # language server for Go + its ASM
+    htop  # saner defaults for top
 	neovim
 	ripgrep  # faster replacement for grep, sensible defaults
     stow  # dotfile management
-	tmux
-	wget
+    tmux
+    wget
+
+    # Network type stuff
+    docker
+    kubectl
+    helm
+    kind
 
 	# additional
     bat # Rust implementation of cat with syntax highlighting, etc; trying it for previews in fzf
