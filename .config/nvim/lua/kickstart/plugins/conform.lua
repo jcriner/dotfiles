@@ -30,6 +30,9 @@ return {
         end
       end,
       formatters_by_ft = {
+        -- TODO: This is required in the lspconfig/mason-installer section.
+        -- Probably should be explicitly ensuring installation, etc, for
+        -- formatters in this file instead.
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },

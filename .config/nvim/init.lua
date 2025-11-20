@@ -82,14 +82,22 @@ require('lazy').setup({
   -- modular approach: using `require 'path.name'` will
   -- include a plugin definition from file lua/path/name.lua
 
+  -- "Deep buffer integration for Git"
   require 'kickstart.plugins.gitsigns',
 
+  -- "Show available keybindings in a pop-up as you type."
   require 'kickstart.plugins.which-key',
 
+  -- "telescope is a highly-extendable fuzzy finder over lists."
+  -- This configures various searches over buffers, help options, etc.
   require 'kickstart.plugins.telescope',
 
+  -- Configure LSPs. Mason is used to install needed LSPs. Any configuration
+  -- per server is handled within. (Also uses Mason to install things like
+  -- stylua.)
   require 'kickstart.plugins.lspconfig',
 
+  -- "Lightweight yet powerful formatter plugin."
   require 'kickstart.plugins.conform',
 
   require 'kickstart.plugins.blink-cmp',
