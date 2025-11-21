@@ -17,7 +17,7 @@ return {
 
       -- add ability to split and join arg lists with an easy command.
       --
-      -- - gs - split/join
+      -- - gS - split/join
       require('mini.splitjoin').setup()
 
       -- Better Around/Inside textobjects

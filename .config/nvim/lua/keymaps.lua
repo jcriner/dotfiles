@@ -1,6 +1,11 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- NOTE: I need to learn what defaults Neovim adds to the Vim lexicon.
+--
+-- For example: "[b" changes to previous buffer. That's a default command in
+-- nvim, but not in vim.
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
