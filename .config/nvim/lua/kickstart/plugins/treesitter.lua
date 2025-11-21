@@ -17,6 +17,22 @@ return {
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
+
+    -- -- NOTE: The below configures treesitter-based increment selection commands.
+    -- config = function()
+    --   require('nvim-treesitter.configs').setup {
+    --     incremental_selection = {
+    --       enable = true,
+    --       keymaps = {
+    --         init_selection = 'gnn',
+    --         node_incremental = 'grn',
+    --         scope_incremental = 'grc',
+    --         node_decremental = 'grm',
+    --       },
+    --     },
+    --   }
+    -- end,
+
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --

@@ -28,7 +28,7 @@ return {
   },
   {
     'catppuccin/nvim',
-    enabled = true,
+    enabled = false,
     priority = 1000,
     config = function()
       -- require 'catppuccin'
@@ -37,7 +37,7 @@ return {
   },
   {
     'darianmorat/gruvdark.nvim',
-    enabled = true,
+    enabled = false,
     priority = 1000,
     config = function()
       require('gruvdark').setup()
@@ -45,7 +45,7 @@ return {
   },
   {
     'phha/zenburn.nvim',
-    enabled = true,
+    enabled = false,
     priority = 1000,
     config = function()
       require('zenburn').setup()

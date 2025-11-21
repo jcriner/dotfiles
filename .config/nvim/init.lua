@@ -61,32 +61,44 @@ vim.api.nvim_create_autocmd('FileType', {
 --
 --  To check the current status of your plugins, run
 --    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
 --  To update plugins you can run
 --    :Lazy update
 --
--- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  'nmac427/guess-indent.nvim', -- detect tabstop and shiftwidth automatically
 
-  -- NOTE: Plugins can also be added by using a table,
-  -- with the first argument being the link and the following
-  -- keys can be used to configure plugin behavior/loading/etc.
-  --
-  -- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
-  --
+  -- colorscheme plugins and preferences.
+  -- TODO: Make it so I can ensure specific things are installed, but not used
+  require 'plugins.colorschemes',
 
-  -- modular approach: using `require 'path.name'` will
-  -- include a plugin definition from file lua/path/name.lua
+  -- "hop" to word/pattern via gw/gp keybindings
+  require 'plugins.hop',
 
-  -- "Deep buffer integration for Git"
-  require 'kickstart.plugins.gitsigns',
-
-  -- "Show available keybindings in a pop-up as you type."
+  -- "show available keybindings in a pop-up as you type."
   require 'kickstart.plugins.which-key',
+
+  -- :keyanalyzer to view current keybindings.
+  -- NOTE: This requires a prefix such as <leader> to see anything. That
+  -- limitation makes this much less handy to me. But harmless for now.
+  --
+  -- use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
+  { 'meznaric/key-analyzer.nvim', opts = {} },
+
+  -- This is where I get surround commands and improved textobjects.
+  -- NOTE: I used to get autopairs from this, but it has some issues.
+  require 'kickstart.plugins.mini',
+
+  -- Autopairs works better than the mini.nvim equivalent.
+  require 'kickstart.plugins.autopairs',
+
+  -- "Highlight, edit, and navigate code"
+  require 'kickstart.plugins.treesitter',
+
+  -- "Neo-tree is a Neovim plugin to browse the file system"
+  require 'kickstart.plugins.neo-tree',
+
+  -- "Lightweight yet powerful formatter plugin."
+  require 'kickstart.plugins.conform',
 
   -- "telescope is a highly-extendable fuzzy finder over lists."
   -- This configures various searches over buffers, help options, etc.
@@ -97,23 +109,15 @@ require('lazy').setup({
   -- stylua.)
   require 'kickstart.plugins.lspconfig',
 
-  -- "Lightweight yet powerful formatter plugin."
-  require 'kickstart.plugins.conform',
-
+  -- Autocomplete, LuaSnip
   require 'kickstart.plugins.blink-cmp',
 
-  require 'plugins.colorschemes',
-
-  require 'plugins.hop',
+  -- "Deep buffer integration for Git"
+  -- require 'kickstart.plugins.gitsigns',
 
   -- require 'kickstart.plugins.todo-comments',
-
-  -- require 'kickstart.plugins.neo-tree',
-
-  require 'kickstart.plugins.mini',
-
-  require 'kickstart.plugins.treesitter',
 }, {
+  -- This can be removed, I think. TODO: Read lazy.nvim docs on ui.
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table

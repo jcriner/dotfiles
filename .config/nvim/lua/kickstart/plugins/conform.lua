@@ -5,6 +5,7 @@ return {
     cmd = { 'ConformInfo' },
     keys = {
       {
+        -- TODO: Change this keybinding.
         '<leader>f',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }

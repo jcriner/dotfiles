@@ -8,12 +8,9 @@ return {
       -- * keymap
       -- * basics
       -- * move
-      --
-      -- Related: figure out what's binding the [] keys for navigation;
-      -- mini.brackets has a thing for this too.
 
       -- Automatically pair parens, etc.
-      require('mini.pairs').setup()
+      -- require('mini.pairs').setup()
 
       -- add ability to split and join arg lists with an easy command.
       --
