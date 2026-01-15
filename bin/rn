@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# Script Name: rn
+# Original source: Evan Hahn's dotfiles
+# Date: 2025-10-31
+#
+# Prints out date and calendar in the following format:
+#
+#  7:57PM on Friday, October 31, 2025
+#
+#     October 2025
+# Su Mo Tu We Th Fr Sa
+#           1  2  3  4
+#  5  6  7  8  9 10 11
+# 12 13 14 15 16 17 18
+# 19 20 21 22 23 24 25
+# 26 27 28 29 30 31
+
+set -e
+set -u
+
+date "+%l:%M%p on %A, %B %e, %Y"
+echo
+cal | grep -E --color=auto "\b$(date '+%e')\b| "
