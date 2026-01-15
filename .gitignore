@@ -1,0 +1,8 @@
+# Ignore the .cfg directory
+.cfg
+
+# version locks for Lazy package management
+.config/nvim/lazy-lock.json
+
+# Don't store shell history
+.config/zsh/.zsh_history
