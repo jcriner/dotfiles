@@ -1,3 +1,4 @@
+-- NOTE: This may need this update: s/configs/config/g
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
