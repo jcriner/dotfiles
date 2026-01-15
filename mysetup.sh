@@ -34,6 +34,7 @@ brew_packages=(
 	fzf
 	fd # improved find, sensible defaults; faster
 	ghostty  # cross-platform; and Terminal doesn't support colors
+    gh # Github CLI
 	git
     go
     gopls # language server for Go + its ASM
