@@ -17,6 +17,7 @@
 # TODO: Decide where this ought to be installed, and for how long I need the file to hang around.
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # TODO: check that this invokes the script
+# TODO: verify that an appropriate .zprofile is created
 
 # TODO: Things I'm looking into:
 # - ripgrep
