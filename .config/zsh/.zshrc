@@ -84,4 +84,6 @@ source $ZDOTDIR/aliases.zsh
 # Some places will have a predefined RC file to configure some things.
 # I'll take advantage of that here. Machine-specific shell configuration will
 # happen by sourcing this file.
-source ~/.zshrc
+if [[ -e ~/.zshrc ]]; then
+  source ~/.zshrc
+fi
