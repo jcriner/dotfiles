@@ -75,3 +75,13 @@ fi
 # alias gs='git status'
 
 source $ZDOTDIR/aliases.zsh
+
+
+# -----------------------------------------------------------
+#  Machine-specific config
+# -----------------------------------------------------------
+
+# Some places will have a predefined RC file to configure some things.
+# I'll take advantage of that here. Machine-specific shell configuration will
+# happen by sourcing this file.
+source ~/.zshrc
