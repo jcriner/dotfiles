@@ -1,0 +1,13 @@
+# ~/.config/starship.toml
+
+# Custom time module
+[custom.time]
+# The shell command to execute to get the time
+command = "date +\"%H:%M\""
+# Show the module only when the command succeeds
+when = "true"
+# Format the output (e.g., wrap it in brackets and set a style)
+format = "[$output]($style) "
+# Define the style (color)
+style = "bold cyan"
+
