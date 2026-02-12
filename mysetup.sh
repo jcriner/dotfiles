@@ -45,6 +45,7 @@ brew_packages=(
     stow  # dotfile management
     tmux
     wget
+    zoxide # cd improvements
 
     # Network type stuff
     docker

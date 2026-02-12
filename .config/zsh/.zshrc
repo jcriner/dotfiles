@@ -31,6 +31,9 @@ else
   export EDITOR='nvim'
 fi
 
+# Start up zoxide for cd improvement (change directories by `z dirname`)
+eval "$(zoxide init zsh)"
+
 # -----------------------------------------------------------
 # Add completion and syntax highlighting.
 # -----------------------------------------------------export i------
