@@ -4,6 +4,14 @@ alias howto='xargs -I STRING curl cheat.sh/STRING <<<'
 # Dotfile management via bare git repo.
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
+# config-save stages, commits, and pushes updates/deletions for ALREADY TRACKED
+# files.
+config-save() {
+    config add -u # -u stages already tracked files
+    config commit -m "Update dotfiles: $(date +'%Y-%m-%d %H:%M')"
+    config push
+}
+
 # Edit quickly
 alias e=$EDITOR
 
