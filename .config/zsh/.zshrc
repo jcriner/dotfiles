@@ -4,6 +4,7 @@
 
 # PATH setup
 export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # History options
 HIST_STAMPS="yyyy-mm-dd"
@@ -36,7 +37,7 @@ eval "$(zoxide init zsh)"
 
 # -----------------------------------------------------------
 # Add completion and syntax highlighting.
-# -----------------------------------------------------export i------
+# -----------------------------------------------------------
 
 ZPLUGINS="$ZDOTDIR/plugins"
 mkdir -p $ZPLUGINS
