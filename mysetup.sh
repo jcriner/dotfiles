@@ -25,8 +25,37 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 eval "$(brew shellenv)"
 
-# 2. Install everything from Brewfile.
+# 2. Dotfiles
+DOTFILES_REPO="git@github.com:jcriner/dotfiles.git"
+DOTFILES_GIT_DIR="$HOME/.cfg"
+DOTFILES_BACKUP="$HOME/.dotfiles-backup"
+
+if [[ ! -d "$DOTFILES_GIT_DIR" ]]; then
+	git clone --bare "$DOTFILES_REPO" "$DOTFILES_GIT_DIR"
+fi
+
+# Temporary function -- the real `dotfiles` binary isn't available yet
+_df() { git --work-tree="$HOME" --git-dir="$DOTFILES_GIT_DIR" "$@"; }
+
+# Back up any files that would conflict with checkout
+checkout_output=$(_df checkout 2>&1) || true
+conflict_files=$(echo "$checkout_output" | grep -E "^\s+\." | awk '{print $1}')
+if [[ -n "$conflict_files" ]]; then
+	echo "Backing up conflicting files to $DOTFILES_BACKUP"
+	while IFS= read -r f; do
+		mkdir -p "$DOTFILES_BACKUP/$(dirname "$f")"
+		mv "$HOME/$f" "$DOTFILES_BACKUP/$f"
+	done <<< "$conflict_files"
+fi
+
+_df checkout
+_df config --local status.showUntrackedFiles no
+chmod +x "$HOME/bin/dotfiles"
+
+echo "Dotfiles installed. Conflicts (if any) backed up to $DOTFILES_BACKUP."
+
+# 3. Install everything from Brewfile.
 brew bundle --file="$SCRIPT_DIR/Brewfile"
 
 # TODO
-# 3. Install my dotfiles repo from GitHub
+# 4. Install my dotfiles repo from GitHub
