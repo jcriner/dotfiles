@@ -50,8 +50,7 @@ if [[ ! -e $ZPLUGINS/zsh-autosuggestions ]]; then
   git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZPLUGINS/zsh-autosuggestions
 fi
 
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
 
 source $ZPLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 source $ZPLUGINS/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
@@ -62,6 +61,11 @@ source $ZPLUGINS/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 if command -v fzf &>/dev/null; then
   source <(fzf --zsh)
 fi
+
+if [[ ! -e $ZPLUGINS/fzf-tab ]]; then
+    git clone https://github.com/Aloxaf/fzf-tab $ZPLUGINS/fzf-tab
+fi
+source $ZPLUGINS/fzf-tab/fzf-tab.plugin.zsh
 
 # -----------------------------------------------------------
 #  Prompt (Starship)
