@@ -25,7 +25,7 @@ _edit() {
     [[ -z "$file" ]] && return
     ${EDITOR:-vi} "$_DOTFILES_WORK_TREE/$file"
     if [[ -n "$(_df_git status --porcelain "$_DOTFILES_WORK_TREE/$file")" ]]; then
-        read -rq "REPLY?Commit and push chnages to $file? [y/N] "
+        read -rq "REPLY?Commit and push changes to $file? [y/N] "
         echo
         [[ "$REPLY" == "y" ]] && _save "dotfiles: update $file"
     fi
